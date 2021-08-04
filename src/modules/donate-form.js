@@ -1,3 +1,4 @@
+import {Setting as Set } from '../core/constants/setting'
 export class DonateForm {
     constructor(totalAmount,createNewDonate){
         this.createNewDonate = createNewDonate
@@ -6,7 +7,7 @@ export class DonateForm {
         this.formContainer.className ='donate-form'
     }
     updateTotalAmount(newAmount) {
-        return `${newAmount} $ `
+        return `${newAmount} ${Set.currency} `
     }
 
     render() {
@@ -17,7 +18,7 @@ export class DonateForm {
 
         const label = document.createElement('label')
         label.className = 'donate-form__input-label'
-        label.textContent = 'Введите сумму в $'
+        label.textContent = `Введите сумму в ${Set.currency}`
 
         const inputHTML = document.createElement('input')
         inputHTML.className = 'donate-form__donate-input'
