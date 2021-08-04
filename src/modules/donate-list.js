@@ -1,5 +1,5 @@
 import {mockDonates as donates} from '../core/utils/const'
-
+import {Setting as Set } from '../core/constants/setting'
 export class DonateList {
     
     constructor(donates){
@@ -11,7 +11,7 @@ export class DonateList {
     }
 
      createListElement = item => {
-        const element = `<div class="donate-item">${item.date} — <b>${item.amount}</b></div>`
+        const element = `<div class="donate-item">${item.date} — <b>${item.amount}${Set.currency}</b></div>`
         return element
       }
     
