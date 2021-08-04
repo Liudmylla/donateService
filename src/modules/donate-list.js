@@ -10,24 +10,25 @@ export class DonateList {
        
     }
 
-    createDonateItem(donateContainerDonates){
-        
-        donates.forEach(donate => {
-           
-            const donateItem = document.createElement('div')
-            donateItem.className = 'donate-item'
-            const amount =document.createElement('b')
-            amount.textContent = `${donate.amount} $`
-            donateItem.textContent = `${donate.date} - `
-            donateItem.append(amount)
-            donateContainerDonates.append(donateItem)
-        });
+     createListElement = item => {
+        const element = `<div class="donate-item">${item.date} — <b>${item.amount}</b></div>`
+        return element
+      }
+    
+      createList = () => {
+        const list = this.donates.map(item => {
+          return this.createListElement(item)
+        }).join('')
+    
+        return list
+      }
 
-   
-       
-    }
-
-    render(){
+      updateDonates = updatedDonates => {
+        this.donates = updatedDonates
+        this.render()
+      }
+    
+      createView = () => {
         const donateContainerTitleHTML = document.createElement('h2')
         donateContainerTitleHTML.className = 'donates-container__title'
         donateContainerTitleHTML.textContent = 'Список донатов'
@@ -35,10 +36,14 @@ export class DonateList {
         const donateContainerDonates = document.createElement('div')
         donateContainerDonates.className ='donates-container__donates'
 
-       this.createDonateItem(donateContainerDonates)
+       donateContainerDonates.innerHTML = this.createList()
 
        this.mainDonateContainer.append(donateContainerTitleHTML,donateContainerDonates)
-       
+      }
+
+    render(){
+       this.mainDonateContainer.innerHTML = ''
+       this.createView()
        return this.mainDonateContainer
     }
 }
