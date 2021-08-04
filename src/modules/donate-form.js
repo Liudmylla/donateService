@@ -1,13 +1,19 @@
 export class DonateForm {
-    constructor(){
+    constructor(totalAmount,createNewDonate){
+        this.createNewDonate = createNewDonate
+        this.totalAmount = totalAmount
         this.formContainer = document.createElement('form')
         this.formContainer.className ='donate-form'
     }
+    updateTotalAmount(newAmount) {
+        return `${newAmount} $ `
+    }
 
     render() {
-        const totalAmount = document.createElement( 'h1')
-        totalAmount.id = 'total-amount'
-        totalAmount.textContent ='28$'
+        
+        const totalAmountHTML = document.createElement( 'h1')
+        totalAmountHTML.id = 'total-amount'
+        totalAmountHTML.textContent = this.updateTotalAmount(this.totalAmount)
 
         const label = document.createElement('label')
         label.className = 'donate-form__input-label'
@@ -28,8 +34,20 @@ export class DonateForm {
         btnHTML.type = 'submit'
         btnHTML.textContent = 'Задонатить'
 
-        this.formContainer.append(totalAmount,label,btnHTML)
+        this.formContainer.append(totalAmountHTML,label,btnHTML)
+        this.formContainer.addEventListener('submit',(event)=>{
+            event.preventDefault()
+            const {target} = event
+            const newDonate = {
+                date: new Date(),
+                amount: Number (target.amount.value)
+            }
+           
+            this.createNewDonate(newDonate)
+            target.amount.value = ''
 
+
+        })
         return this.formContainer
     }
 }
